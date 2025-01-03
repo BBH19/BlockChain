@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Reservation System</title>
+    <style>
+      body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+          background-color: #f8f9fa;
+          color: #333;
+      }
+      header {
+          background-color: #0071c2;
+          color: white;
+          padding: 20px;
+          text-align: center; /* Aligne le titre à droite */
+      }
+      header h1 {
+          font-size: 36px;
+          margin: 0;
+      }
+      main {
+          max-width: 800px;
+          margin: 20px auto;
+          padding: 20px;
+          background-color: white;
+          border-radius: 8px;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      h3 {
+          color: #0071c2;
+      }
+      .form-group {
+          margin-bottom: 15px;
+      }
+      label {
+          display: block;
+          font-weight: bold;
+          margin-bottom: 5px;
+      }
+      input, textarea, button {
+          width: 96%;
+          padding: 10px;
+          margin-bottom: 10px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          font-size: 14px;
+      }
+      textarea {
+          resize: none;
+          height: 150px; /* Fixe une taille moyenne */
+      }
+      button {
+        width: 99%;
+          background-color: #0071c2;
+          color: white;
+          border: none;
+          cursor: pointer;
+          font-weight: bold;
+      }
+      button:hover {
+          background-color: #005fa3;
+      }
+      .alert {
+          padding: 10px;
+          margin-top: 10px;
+          border-radius: 4px;
+          font-size: 14px;
+      }
+      .success {
+          background-color: #d4edda;
+          color: #155724;
+      }
+      .error {
+          background-color: #f8d7da;
+          color: #721c24;
+      }
+      .totals {
+          position: fixed;
+          top: 20px;
+          left: 20px;
+          background-color: #f0f0f0;
+          padding: 15px;
+          border-radius: 8px;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .totals p {
+          margin: 5px 0;
+          font-size: 16px;
+      }
+  </style> <!-- Vous pouvez déplacer les styles CSS dans un fichier séparé si nécessaire -->
+</head>
+<body>
+    <header>
+        <h1>Hotel Reservation System</h1>
+    </header>
+    <div class="totals">
+        <p><strong>Number of Rooms:</strong> <span id="roomCount">0</span></p>
+        <p><strong>Number of Reservations:</strong> <span id="reservationCount">0</span></p>
+    </div>
+    <main>
+        <section>
+            <h3>Add a Room</h3>
+            <div class="form-group">
+                <input type="number" id="roomPrice"  min="1" placeholder="Room Price (in wei)" />
+            </div>
+            <button onclick="addRoom()">Add Room</button>
+            <div id="addRoomMessage" class="alert"></div>
+        </section>
+
+        <section>
+            <h3>Reserve a Room</h3>
+            <div class="form-group">
+                <input type="number" id="roomId"  min="1" placeholder="Room ID" />
+                <input type="date" id="checkInDate" />
+                <input type="date" id="checkOutDate" />
+                <input type="text" id="name" placeholder="Your Name" />
+                <input type="text" id="phoneNumber" placeholder="Your Phone Number" />
+                <input type="number" id="price" placeholder="Reservation Price (in wei)" />
+            </div>
+            <button onclick="reserveRoom()">Reserve Room</button>
+            <div id="reservationMessage" class="alert"></div>
+        </section>
+
+        <section>
+          <h3>Get Room Details</h3>
+          <div class="form-group">
+              <input type="number" id="checkRoomId" min="1" placeholder="Room ID" />
+          </div>
+          <button onclick="getRoomDetails()">Get Room Details</button>
+          <div id="roomDetailsMessage" class="alert"></div>
+          <div id="roomDetails"></div>
+        </section>
+
+        <section>
+          <h3>Get Reservation Details</h3>
+          <div class="form-group">
+              <input type="number" id="reservationId" min="1" placeholder="Reservation ID" />
+          </div>
+          <button onclick="getReservationDetails()">Get Reservation Details</button>
+          <div id="reservationDetailsMessage" class="alert"></div>
+          <div id="reservationDetails"></div>
+        </section>
+
+        <section>
+          <h3>Confirm or Cancel Reservation</h3>
+          <div class="form-group">
+              <input type="number" id="confirmationReservationId" min="1" placeholder="Reservation ID" />
+          </div>
+          <button onclick="confirmReservation()">Confirm Reservation</button>
+          <button onclick="cancelReservation()">Cancel Reservation</button>
+          <div id="confirmationMessage" class="alert"></div>
+        </section>
+    
+        <section>
+          <h3>Submit a Review</h3>
+          <div class="form-group">
+              <input type="number" id="roomReviewId" placeholder="Room ID" />
+              <input type="number" id="rating" min="1" max="5" placeholder="Rating (1-5)" />
+              <textarea id="comment" placeholder="Your Comment"></textarea>
+          </div>
+          <button onclick="submitReview()">Submit Review</button>
+      </section>
+      
+      <section>
+          <h3>Retrieve Reviews</h3>
+          <div class="form-group">
+              <!-- Nouvelle ID -->
+              <input type="number" id="roomReviewIdInput" min="1" placeholder="Room ID" />
+          </div>
+          <button onclick="getReviews()">Get Reviews</button>
+          <ul id="reviewsList"></ul>
+      </section>
+      
+    
+      </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
+    <script src="script.js"></script> <!-- Lien vers votre fichier script.js -->
+</body>
+</html>
